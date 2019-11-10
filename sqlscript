@@ -1,1 +1,42 @@
 -- script to create tables/ set up database
+--script to set up Project Database
+
+--create the profile table
+CREATE TABLE Profile(
+  ProfileID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, 
+  FirstName NVARCHAR(10) NOT NULL,
+  MiddleName NVARCHAR(10),
+  LastName NVARCHAR(10) NOT NULL,
+  Description NVARCHAR(255) NOT NULL
+);
+
+--create the user table
+CREATE TABLE User(
+   Username NVARCHAR(20) PRIMARY KEY NOT NULL, 
+   Email NVARCHAR(100) NOT NULL,
+   Password NVARCHAR(20) NOT NULL
+);
+
+--create the post table
+CREATE TABLE Post(
+   Title NVARCHAR(20) PRIMARY KEY NOT NULL, 
+   --Date PRIMARY KEY
+   Photo NVARCHAR(100) NOT NULL, --contains filename for the photo
+   TextContent NVARCHAR(255) NOT NULL,
+   City NVARCHAR(50) NOT NULL,
+   State NVARCHAR(50) NOT NULL,
+   Country NVARCHAR(50) NOT NULL
+);
+
+--create the blog table
+CREATE TABLE Blog(
+   Name NVARCHAR(20) PRIMARY KEY NOT NULL, 
+   Description NVARCHAR(255) NOT NULL
+);
+
+--create the NatureItem table
+CREATE TABLE NatureItem(
+   SpeciesID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+   Species NVARCHAR(200) NOT NULL, 
+   Characteristics NVARCHAR(255) NOT NULL
+);
