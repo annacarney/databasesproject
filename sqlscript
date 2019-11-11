@@ -1,5 +1,5 @@
--- script to create tables/ set up database
 --script to set up Project Database
+--CREATE DATABASE <name>
 
 --create the profile table
 CREATE TABLE Profile(
@@ -20,8 +20,8 @@ CREATE TABLE User(
 --create the post table
 CREATE TABLE Post(
    Title NVARCHAR(20) PRIMARY KEY NOT NULL, 
-   --Date PRIMARY KEY
-   Photo NVARCHAR(100) NOT NULL, --contains filename for the photo
+   --Date PRIMARY KEY            --fix!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+   Photo NVARCHAR(100) NOT NULL,      --contains filename for the photo
    TextContent NVARCHAR(255) NOT NULL,
    City NVARCHAR(50) NOT NULL,
    State NVARCHAR(50) NOT NULL,
@@ -39,4 +39,56 @@ CREATE TABLE NatureItem(
    SpeciesID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
    Species NVARCHAR(200) NOT NULL, 
    Characteristics NVARCHAR(255) NOT NULL
+);
+
+--create the has table
+CREATE TABLE Has(
+  ProfileID INTEGER NOT NULL, 
+  Username NVARCHAR(20) NOT NULL, 
+  CONSTRAINT fk_profile_has FOREIGN KEY (ProfileID) REFERENCES Profile(ProfileID),
+  CONSTRAINT fk_user_has FOREIGN KEY (Username) REFERENCES User(Username)
+);
+
+--create the Runs table
+CREATE TABLE Runs(
+  Username NVARCHAR(20) NOT NULL,
+  Name NVARCHAR(20) NOT NULL,  
+  CONSTRAINT fk_name_runs FOREIGN KEY (Name) REFERENCES Blog(Name),
+  CONSTRAINT fk_username_runs FOREIGN KEY (Username) REFERENCES User(Username)
+);
+
+--create the Contains table
+CREATE TABLE Contains(
+  Name NVARCHAR(20) NOT NULL,  
+  Title NVARCHAR(20) NOT NULL, 
+  CONSTRAINT fk_blog_contains FOREIGN KEY (Name) REFERENCES Blog(Name),
+  CONSTRAINT fk_postTitle_contains FOREIGN KEY (Title) REFERENCES Post(Title)
+ -- CONSTRAINT fk_postDate_contains FOREIGN KEY (Date) REFERENCES Post(Date)            ADD ME WHEN ADD THE DATE TO POST TABLE
+);
+
+--create the Follow table
+CREATE TABLE Follows(
+  Username NVARCHAR(20) NOT NULL,
+  Name NVARCHAR(20) NOT NULL,  
+  CONSTRAINT fk_user_follows FOREIGN KEY (Username) REFERENCES User(Username),
+  CONSTRAINT fk_blog_follows FOREIGN KEY (Name) REFERENCES Blog(Name)
+);
+
+--create the Comments_on table
+CREATE TABLE Comments_On(
+  Username NVARCHAR(20) NOT NULL,
+  Title NVARCHAR(20) NOT NULL, 
+  Timestamp INTEGER PRIMARY KEY NOT NULL, --look for a time data type
+  CONSTRAINT fk_user_comments_on FOREIGN KEY (Username) REFERENCES User(Username),
+  CONSTRAINT fk_post_comments_on FOREIGN KEY (Title) REFERENCES Post(Title)
+  --CONSTRAINT fk_post_comments_on FOREIGN KEY (Date) REFERENCES Post(Date)        ADD ME WHEN ADD THE DATE TO POST TABLE
+);
+
+--create the affiliated table
+CREATE TABLE Affiliated(
+  SpeciesID INTEGER NOT NULL,
+  Title NVARCHAR(20) NOT NULL, 
+  CONSTRAINT fk_natureitem_affiliated FOREIGN KEY (SpeciesID) REFERENCES NatureItem(SpeciesID),
+  CONSTRAINT fk_post_affiliated FOREIGN KEY (Title) REFERENCES Post(Title)
+ -- CONSTRAINT fk_post_affiliated FOREIGN KEY (Date) REFERENCES Post(Date)            ADD ME WHEN ADD THE DATE TO POST TABLE
 );
