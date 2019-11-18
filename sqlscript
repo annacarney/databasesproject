@@ -61,8 +61,7 @@ CREATE TABLE Runs(
 --create the Contains table
 CREATE TABLE Contains(
   Name NVARCHAR(20) NOT NULL,  
-  Title NVARCHAR(20) NOT NULL, 
-  Date TEXT NOT NULL, 
+  PostID INTEGER,
   CONSTRAINT fk_blog_contains FOREIGN KEY (Name) REFERENCES Blog(Name),
   CONSTRAINT fk_post_contains FOREIGN KEY (PostID) REFERENCES Post(PostID)           
 );
@@ -78,8 +77,7 @@ CREATE TABLE Follows(
 --create the Comments_on table
 CREATE TABLE Comments_On(
   Username NVARCHAR(20) NOT NULL,
-  Title NVARCHAR(20) NOT NULL, 
-  Date TEXT NOT NULL, 
+  PostID INTEGER,
   Timestamp TEXT PRIMARY KEY NOT NULL, --look for a time data type
   CONSTRAINT fk_user_comments_on FOREIGN KEY (Username) REFERENCES User(Username),
   CONSTRAINT fk_post_comments_on FOREIGN KEY (PostID) REFERENCES Post(PostID)         
@@ -88,8 +86,7 @@ CREATE TABLE Comments_On(
 --create the affiliated table
 CREATE TABLE Affiliated(
   SpeciesID INTEGER NOT NULL,
-  Title NVARCHAR(20) NOT NULL, 
-  Date TEXT NOT NULL, 
+  PostID INTEGER,
   CONSTRAINT fk_natureitem_affiliated FOREIGN KEY (SpeciesID) REFERENCES NatureItem(SpeciesID),
   CONSTRAINT fk_post_affiliated FOREIGN KEY (PostID) REFERENCES Post(PostID)            
 );
