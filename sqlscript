@@ -19,8 +19,9 @@ CREATE TABLE User(
 
 --create the post table
 CREATE TABLE Post(
+   --PostID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, --ADD !
    Title NVARCHAR(20) PRIMARY KEY NOT NULL, 
-   Date TEXT PRIMARY KEY NOT NULL,          --Stored as ISO8601 strings ("YYYY-MM-DD HH:MM:SS.SSS")
+   Date TEXT NOT NULL,          --Stored as ISO8601 strings ("YYYY-MM-DD HH:MM:SS.SSS")
    Photo NVARCHAR(100) NOT NULL,      --contains filename for the photo
    TextContent NVARCHAR(255) NOT NULL,
    City NVARCHAR(50) NOT NULL,
