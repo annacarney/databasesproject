@@ -19,8 +19,8 @@ CREATE TABLE User(
 
 --create the post table
 CREATE TABLE Post(
-   --PostID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, --ADD !
-   Title NVARCHAR(20) PRIMARY KEY NOT NULL, 
+   PostID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, --ADD TO ER DIAGRAM !
+   Title NVARCHAR(20) NOT NULL, 
    Date TEXT NOT NULL,          --Stored as ISO8601 strings ("YYYY-MM-DD HH:MM:SS.SSS")
    Photo NVARCHAR(100) NOT NULL,      --contains filename for the photo
    TextContent NVARCHAR(255) NOT NULL,
@@ -64,8 +64,7 @@ CREATE TABLE Contains(
   Title NVARCHAR(20) NOT NULL, 
   Date TEXT NOT NULL, 
   CONSTRAINT fk_blog_contains FOREIGN KEY (Name) REFERENCES Blog(Name),
-  CONSTRAINT fk_postTitle_contains FOREIGN KEY (Title) REFERENCES Post(Title),
-  CONSTRAINT fk_postDate_contains FOREIGN KEY (Date) REFERENCES Post(Date)           
+  CONSTRAINT fk_post_contains FOREIGN KEY (PostID) REFERENCES Post(PostID)           
 );
 
 --create the Follow table
@@ -83,8 +82,7 @@ CREATE TABLE Comments_On(
   Date TEXT NOT NULL, 
   Timestamp TEXT PRIMARY KEY NOT NULL, --look for a time data type
   CONSTRAINT fk_user_comments_on FOREIGN KEY (Username) REFERENCES User(Username),
-  CONSTRAINT fk_post_comments_on FOREIGN KEY (Title) REFERENCES Post(Title),
-  CONSTRAINT fk_post_comments_on FOREIGN KEY (Date) REFERENCES Post(Date)        
+  CONSTRAINT fk_post_comments_on FOREIGN KEY (PostID) REFERENCES Post(PostID)         
 );
 
 --create the affiliated table
@@ -93,7 +91,6 @@ CREATE TABLE Affiliated(
   Title NVARCHAR(20) NOT NULL, 
   Date TEXT NOT NULL, 
   CONSTRAINT fk_natureitem_affiliated FOREIGN KEY (SpeciesID) REFERENCES NatureItem(SpeciesID),
-  CONSTRAINT fk_post_affiliated FOREIGN KEY (Title) REFERENCES Post(Title),
-  CONSTRAINT fk_post_affiliated FOREIGN KEY (Date) REFERENCES Post(Date)            
+  CONSTRAINT fk_post_affiliated FOREIGN KEY (PostID) REFERENCES Post(PostID)            
 );
 
